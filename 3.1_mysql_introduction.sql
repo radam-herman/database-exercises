@@ -11,3 +11,5 @@ SELECT * FROM mysql.help_topic;
 
 -- not sure what this is - selects help topic, category and url
 SELECT help_topic_id, help_category_id, url FROM mysql.help_topic;
+
+-- adding this to test recommit
