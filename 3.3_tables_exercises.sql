@@ -6,6 +6,17 @@ use employees;
 -- 4
 show TABLES;
 
+current_dept_emp
+departments
+dept_emp
+dept_emp_latest_date
+dept_manager
+employees
+salaries
+titles
+
+
+
 -- exploring Employees table
 -- 5
 describe employees;
@@ -20,6 +31,11 @@ describe employees;
 -- 8 date type table - birth_date, hire_date
 
 -- 9 What is the relationship between the employees and the departments tables???
+
+show create table employees;
+
+show create table departments;
+
 
 
 -- 10 showing the SQL to create the table dept_manager
