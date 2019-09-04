@@ -20,20 +20,45 @@ where last_name like 'e%'
 
 -- 3 Convert the names produced in your last query to all uppercase.
 
-select concat (first_name, " ", last_name) as full_name
+select concat (upper(first_name), " ", upper(last_name)) as full_name
 from employees
 where last_name like 'e%'
 
-select concat (first_name, " ", last_name) as full_name
-from employees
-where last_name like 'e%'
+-- 4 For your query of employees born on Christmas and hired in the 90s, use datediff() to find how many days they have been working at the company (Hint: You will also need to use NOW() or CURDATE())
 
--- 4 Try to think of your results as batches, sets, or pages. The first five results are your first page. The five after that would be your second page, etc. Update the query to find the tenth page of results. The employee names should be:
-
-select first_name, last_name, emp_no, hire_date, birth_date
+select first_name, last_name, datediff(now(), hire_date) as days_hired
 from employees
 where hire_date between '1990-01-01' and '1999-12-31'
 and birth_date like '%-12-25'
-order by birth_date ASC, hire_date DESC
-limit 5 offset 45
+limit 5
+
+-- 5 Find the smallest and largest salary from the salaries table.
+
+select *
+from salaries
+limit 5
+
+describe salaries
+
+emp_no	int(11)	NO	PRI	NULL	
+salary	int(11)	NO		NULL	
+from_date	date	NO	PRI	NULL	
+to_date	date	NO		NULL	
+
+select min(salary), max(salary)
+from salaries
+
+-- 6 Use your knowledge of built in SQL functions to generate a username for all of the employees. A username should be all lowercase, and consist of the first character of the employees first name, the first 4 characters of the employees last name, an underscore, the month the employee was born, and the last two digits of the year that they were born. Below is an example of what the first 10 rows will look like:
+
++------------+------------+-----------+------------+
+| username   | first_name | last_name | birth_date |
++------------+------------+-----------+------------+
+| gface_0953 | Georgi     | Facello   | 1953-09-02 |
+| bsimm_0664 | Bezalel    | Simmel    | 1964-06-02 |
+| pbamf_1259 | Parto      | Bamford   | 1959-12-03 |
+
+  -- NOTE - SUBSTR CAN ALSO USE NEG "-"
+select concat (lower(substr(first_name, 1, 1)), lower(substr(last_name, 1, 4)), "_", substr(birth_date, -5, 2), substr(birth_date, 3, 2)) as username, first_name, last_name, birth_date
+from `employees`
+limit 5
 
