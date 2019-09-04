@@ -77,14 +77,15 @@ where last_name like 'E%' OR last_name like '%e'
 select `last_name`
 from employees
 where last_name like 'E%' AND last_name like '%e'
+     --- could have abridged to '%e%'
 
 -- 5 Find all employees hired in the 90s and born on Christmas — 362 rows.
 
 select emp_no, hire_date, birth_date
 from employees
-where (hire_date between '1990-01-01' and '1999-12-31')
+where hire_date between '1990-01-01' and '1999-12-31'
 and birth_date like '%-12-25'
-    -- mine has 5 more entries, ie 367
+    -- mine has 5 more entries, ie 367 with parens
     
 -- 6 Find all employees with a 'q' in their last name but not 'qu' — 547 rows.
 select `last_name`
