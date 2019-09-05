@@ -54,23 +54,72 @@ where first_name in ('Irena', 'Vidya','Maya')
 group by gender
 
 
+-- THIS ONE IS GIVING ME PROBLEMS
+-- 8 Recall the query the generated usernames for the employees from the last lesson. Are there any duplicate usernames?
+
+Bonus: how many duplicate usernames are there?
+
+select concat (lower(substr(first_name, 1, 1)), lower(substr(last_name, 1, 4)), "_", substr(birth_date, -5, 2), substr(birth_date, 3, 2)) as username, first_name, last_name, birth_date, count(*)
+from `employees`
+group by username
+order by count(*)
+limit 5
+
+select concat (lower(substr(first_name, 1, 1)), lower(substr(last_name, 1, 4)), "_", substr(birth_date, -5, 2), substr(birth_date, 3, 2)) as username, first_name, last_name, birth_date, count(*)
+from `employees`
+-- group by username
+order by count(*)
+limit 5
+
+
 -- THESE ARE JUST EXAMPLES FM READING
 -- ++++++++++++++++++++++++++++
 
+-- ex 1 ===============================
 SELECT first_name, COUNT(first_name)
 FROM employees
 WHERE first_name NOT LIKE '%a%'
 GROUP BY first_name
-limit 20
+limit 5
 
+
+SELECT first_name, COUNT(first_name)
+FROM employees
+GROUP BY first_name
+limit 5
+
+-- output ex 1
+Becky	227
+Bedir	238
+Bedrich	240
+Bernd	240
+Berni	234
+
+-- ex 2. ==============================
 SELECT hire_date, COUNT(*)
 FROM employees
 GROUP BY hire_date
 ORDER BY COUNT(*) DESC
-LIMIT 10;
+LIMIT 5;
 
+-- output ex 2
+1985-06-20	132
+1985-03-21	131
+1985-08-08	128
+1985-03-24	128
+1985-12-12	127
+
+-- ex 3 ===============================
 select first_name, last_name, count(*)
 from employees
 group by first_name, last_name
 order by count(*) desc
-limit 20
+limit 5
+
+-- output ex 3
+Rosalyn	Baalen	5
+Laurentiu	Cesareni	5
+Charlene	Maraist	4
+Dietrich	Figueira	4
+Alper	Lienhardt	4
+
