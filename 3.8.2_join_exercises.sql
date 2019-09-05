@@ -49,7 +49,7 @@ JOIN dept_manager AS dmgr
 JOIN departments AS d
   ON d.dept_no = dmgr.dept_no
 WHERE dmgr.to_date = '9999-01-01'
-order by d.dept_name;
+order by d.dept_name ASC;
   
   -- output 2 
 Customer Service	Yuchang Weedman
@@ -112,7 +112,8 @@ JOIN dept_emp AS de
 JOIN titles AS t
   ON t.emp_no = de.emp_no
 WHERE t.to_date = '9999-01-01' and de.to_date = '9999-01-01' and d.dept_name = 'Customer Service'
-Group by t.title;
+Group by t.title
+order by t.title ASC;
 
 -- 4 output
 Assistant Engineer	68
@@ -123,17 +124,103 @@ Senior Staff	11268
 Staff	3574
 Technique Leader	241;
 
+-- 5 Find the current salary of all current managers.
+-- match 
+-- Department Name    | Name              | Salary
+-- -------------------+-------------------+-------
+-- Customer Service   | Yuchang Weedman   |  58745
+-- Development        | Leon DasSarma     |  74510
+
+SELECT d.dept_name as 'Department Name', CONCAT(e.first_name, ' ', e.last_name) AS Name, s.salary
+FROM employees AS e
+JOIN dept_manager AS dmgr
+  ON dmgr.emp_no = e.emp_no
+JOIN departments AS d
+  ON d.dept_no = dmgr.dept_no
+Join salaries As s
+on s.emp_no  = e.emp_no
+WHERE dmgr.to_date = '9999-01-01' and s.to_date = '9999-01-01'
+order by d.dept_name;
+
+describe salaries;
+emp_no	int(11)	NO	PRI	NULL	
+salary	int(11)	NO		NULL	
+from_date	date	NO	PRI	NULL	
+to_date	date	NO		NULL	;
+
+
+-- 5 output
+Customer Service	Yuchang Weedman	58745
+Development	Leon DasSarma	74510
+Finance	Isamu Legleitner	83457
+Human Resources	Karsten Sigstam	65400
+Marketing	Vishwani Minakawa	106491
+Production	Oscar Ghazalie	56654
+Quality Management	Dung Pesch	72876
+Research	Hilary Kambil	79393
+Sales	Hauke Zhang	101987;
+
+-- 6 Find the number of employees in each department.
+-- example  to mathch
+-- +---------+--------------------+---------------+
+-- | dept_no | dept_name          | num_employees |
+-- +---------+--------------------+---------------+
+-- | d001    | Marketing          | 14842         |
+-- | d002    | Finance            | 12437         |
+-- | d003    | Human Resources    | 12898         |
+
+describe employees;
+emp_no	int(11)	NO	PRI	NULL	
+birth_date	date	NO		NULL	
+first_name	varchar(14)	NO		NULL	
+last_name	varchar(16)	NO		NULL	
+gender	enum('M','F')	NO		NULL	
+hire_date	date	NO		NULL	;
+
+describe dept_emp;
+emp_no	int(11)	NO	PRI	NULL	
+dept_no	char(4)	NO	PRI	NULL	
+from_date	date	NO		NULL	
+to_date	date	NO		NULL	;
+
+describe departments;
+dept_no	char(4)	NO	PRI	NULL	
+dept_name	varchar(40)	NO	UNI	NULL	;
+
+select d.dept_no, d.dept_name
+from employees as e
+join dept_emp as de
+  on de.emp_no = e.emp_no
+join departments as d
+  on d.dept_no = de.`dept_no`;
+
+
+--- order dave used
+fm dept
+dept emp
+employees
+
+
+-- 6 output
 
 
 
 
 
+-- 7 order dave used
+sel d.dept name avg (s.sal) as average_salary
+fm dept
+dept emp on dept no
+emp on emp no
+salaries on  emp no
+
+order by average_salary
 
 
-
-
-
-
+-- 8 
+fm dept
+j dept emp  on d.dept
+j emp on de.emp
 
 
 
