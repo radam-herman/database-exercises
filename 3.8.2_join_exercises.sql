@@ -15,7 +15,7 @@ titles;
 
 
 -- 2 Using the example in the Associative Table Joins section as a guide, write a query that shows each department along with the name of the current manager for that department.
-  -- department [name] = Department Name | current mgr = Department Manager
+  -- de [name] = Department Name | current mgr = Department Manager
   
 -- examine departments tb and dept_manager tb
 describe departments;
@@ -36,53 +36,92 @@ last_name	varchar(16)	NO		NULL
 gender	enum('M','F')	NO		NULL	
 hire_date	date	NO		NULL	;
 
--- DONT NEED describe dept_emp;
+describe dept_emp;
 emp_no	int(11)	NO	PRI	NULL	
 dept_no	char(4)	NO	PRI	NULL	
 from_date	date	NO		NULL	
 to_date	date	NO		NULL	;
 
-SELECT CONCAT(e.first_name, ' ', e.last_name) AS full_name, d.dept_name
+SELECT d.dept_name, CONCAT(e.first_name, ' ', e.last_name) AS full_name 
 FROM employees AS e
 JOIN dept_manager AS dmgr
   ON dmgr.emp_no = e.emp_no
 JOIN departments AS d
-  ON d.dept_no = dmgr.dept_no;
+  ON d.dept_no = dmgr.dept_no
+WHERE dmgr.to_date = '9999-01-01'
+order by d.dept_name;
   
   -- output 2 
-Tonny Butterworth	Customer Service
-Marjo Giarratana	Customer Service
-Xiaobin Spinelli	Customer Service
-Yuchang Weedman	Customer Service
-DeForest Hagimont	Development
-Leon DasSarma	Development
-Ebru Alpin	Finance
-Isamu Legleitner	Finance
-Shirish Ossenbruggen	Human Resources
-Karsten Sigstam	Human Resources
-Margareta Markovitch	Marketing
-Vishwani Minakawa	Marketing
-Krassimir Wegerle	Production
-Rosine Cools	Production
-Shem Kieras	Production
-Oscar Ghazalie	Production
-Peternela Onuegbe	Quality Management
-Rutger Hofmeyr	Quality Management
-Sanjoy Quadeer	Quality Management
-Dung Pesch	Quality Management
-Arie Staelin	Research
-Hilary Kambil	Research
-Przemyslawa Kaelbling	Sales
-Hauke Zhang	Sales;
+Customer Service	Yuchang Weedman
+Development	Leon DasSarma
+Finance	Isamu Legleitner
+Human Resources	Karsten Sigstam
+Marketing	Vishwani Minakawa
+Production	Oscar Ghazalie
+Quality Management	Dung Pesch
+Research	Hilary Kambil
+Sales	Hauke Zhang;
 
+-- 3 Find the name of all departments currently managed by women.
 
+SELECT d.dept_name, CONCAT(e.first_name, ' ', e.last_name) AS full_name 
+FROM employees AS e
+JOIN dept_manager AS dmgr
+  ON dmgr.emp_no = e.emp_no
+JOIN departments AS d
+  ON d.dept_no = dmgr.dept_no
+WHERE dmgr.to_date = '9999-01-01' and e.gender = 'F'
+order by d.dept_name;
 
+-- 3 output
+Development	Leon DasSarma
+Finance	Isamu Legleitner
+Human Resources	Karsten Sigstam
+Research	Hilary Kambil;
 
+-- 4 Find the current titles of employees currently working in the Customer Service department.
 
+describe titles;
+emp_no	int(11)	NO	PRI	NULL	
+title	varchar(50)	NO	PRI	NULL	
+from_date	date	NO	PRI	NULL	
+to_date	date	YES		NULL	;
 
+select *
+from departments
+limit 5;
 
+d009	Customer Service
+d005	Development
+d002	Finance
+d003	Human Resources
+d001	Marketing;
 
+describe employees;
+emp_no	int(11)	NO	PRI	NULL	
+birth_date	date	NO		NULL	
+first_name	varchar(14)	NO		NULL	
+last_name	varchar(16)	NO		NULL	
+gender	enum('M','F')	NO		NULL	
+hire_date	date	NO		NULL	;
 
+SELECT t.title, count(*) 
+FROM departments AS d
+JOIN dept_emp AS de
+  ON de.dept_no = d.dept_no
+JOIN titles AS t
+  ON t.emp_no = de.emp_no
+WHERE t.to_date = '9999-01-01' and de.to_date = '9999-01-01' and d.dept_name = 'Customer Service'
+Group by t.title;
+
+-- 4 output
+Assistant Engineer	68
+Engineer	627
+Manager	1
+Senior Engineer	1790
+Senior Staff	11268
+Staff	3574
+Technique Leader	241;
 
 
 
