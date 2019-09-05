@@ -80,6 +80,13 @@ Human Resources	Karsten Sigstam
 Research	Hilary Kambil;
 
 -- 4 Find the current titles of employees currently working in the Customer Service department.
+-- example to match
+-- Title              | Count
+-- -------------------+------
+-- Assistant Engineer |    68
+-- Engineer           |   627
+-- Manager            |     1
+-- Senior Engineer    |  1790;
 
 describe titles;
 emp_no	int(11)	NO	PRI	NULL	
@@ -187,13 +194,13 @@ describe departments;
 dept_no	char(4)	NO	PRI	NULL	
 dept_name	varchar(40)	NO	UNI	NULL	;
 
-select d.dept_no, d.dept_name
-from employees as e
+select d.dept_no, d.dept_name, count(*)
+from departments as d
 join dept_emp as de
-  on de.emp_no = e.emp_no
-join departments as d
-  on d.dept_no = de.`dept_no`;
-
+  on de.dept_no = d.dept_no
+join employees as e
+  on e.emp_no = de.emp_no
+group by d.dept_no;
 
 --- order dave used
 fm dept
