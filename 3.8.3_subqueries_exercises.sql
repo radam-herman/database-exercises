@@ -13,9 +13,21 @@ where e.hire_date in (
     )
 limit 5;
 
-   select e.hire_date
-    from employees as e
-    where e.emp_no = '101010';
+  -- 1 yay it works!!!!
+select emp_no, first_name, last_name, hire_date
+from employees
+where hire_date in (
+    select hire_date
+    from employees
+    where emp_no = '101010'
+    );
+-- limit 5;
+
+select e.emp_no, e.first_name, e.last_name, e.hire_date
+from employees as e
+where e.hire_date = '1990-10-22';
+
+
 
 -- 2 Find all the titles held by all employees with the first name Aamod. 314 total titles, 6 unique titles
 
