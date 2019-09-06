@@ -221,27 +221,60 @@ d008	Research	15441
 d009	Customer Service	17569;
 
 
-
-
+use `employees`;
+-- 7 Which department has the highest average salary?
 -- 7 order dave used
+
+describe salaries;
+emp_no	int(11)	NO	PRI	NULL	
+salary	int(11)	NO		NULL	
+from_date	date	NO	PRI	NULL	
+to_date	date	NO		NULL	;
+
+           -- tables dept_emp, departments, employees, salaries
+-- example
++-----------+----------------+
+| dept_name | average_salary |
++-----------+----------------+
+| Sales     | 88852.9695     |
++-----------+----------------+;
+
 sel d.dept name avg (s.sal) as average_salary
 fm dept
 dept emp on dept no
 emp on emp no
-salaries on  emp no
+salaries on  emp no;
 
-order by average_salary
+order by average_salary;
 -- ++++++++++++
+select d.dept_name, s.salary -- avg(s.salary) average_salary
+from departments as d
+join dept_emp as de
+    on de.dept_no = d.dept_no
+join employees as e
+   on e.emp_no = de.emp_no
+join salaries as s
+   on s.emp_no = e.emp_no
+limit 10;
+Where de.to_date ;
+group by max salary;
 
-
-
+whr de to_date s to_date d dept_name = mark
+order sal
 
 -- 8 
 fm dept
 j dept emp  on d.dept
-j emp on de.emp
+j emp on de.emp;
 
-
+SELECT first_name, last_name, birth_date
+FROM employees
+WHERE emp_no IN (
+    SELECT emp_no
+    FROM dept_manager
+    WHERE employees.birth_date > '1960-01-01'
+)
+LIMIT 10;
 
 
 -- ||||||||||||||||||||||||||||||||||||
