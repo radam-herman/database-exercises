@@ -32,6 +32,33 @@ where e.hire_date = '1990-10-22';
 -- 2 Find all the titles held by all employees with the first name Aamod. 314 total titles, 6 unique titles
 
 
+select titles.title, employees.first_name, employees.last_name
+from titles
+where title in
+(
+select e.first_name
+from employees as e
+where first_name in (
+     select first_name
+     from employees
+     where first_name = 'Aamod'
+     ))
+limit 10;
+
+select title
+from titles
+where emp_no in (
+     select emp_no
+     from employees
+     where first_name = 'Aamod'
+);
+-- limit 10;
+
+
+select first_name, last_name, emp_no
+     from employees
+     where first_name = 'Aamod'
+limit 10;
 
 -- 3 How many people in the employees table are no longer working for the company?
 
@@ -78,6 +105,12 @@ dept_manager
 employees
 salaries
 titles;
+
+describe titles;
+emp_no	int(11)	NO	PRI	NULL	
+title	varchar(50)	NO	PRI	NULL	
+from_date	date	NO	PRI	NULL	
+to_date	date	YES		NULL	;
 
 describe employees;
 emp_no	int(11)	NO	PRI	NULL	
