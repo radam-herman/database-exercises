@@ -194,12 +194,13 @@ describe departments;
 dept_no	char(4)	NO	PRI	NULL	
 dept_name	varchar(40)	NO	UNI	NULL	;
 
-select d.dept_no, d.dept_name, count(*)
+select d.dept_no, d.dept_name, count(e.emp_no) as nbr_empls
 from departments as d
 join dept_emp as de
   on de.dept_no = d.dept_no
 join employees as e
   on e.emp_no = de.emp_no
+WHERE de.to_date = '9999-01-01' -- and s.to_date = '9999-01-01'
 group by d.dept_no;
 
 --- order dave used
@@ -209,7 +210,15 @@ employees
 
 
 -- 6 output
-
+d001	Marketing	14842
+d002	Finance	12437
+d003	Human Resources	12898
+d004	Production	53304
+d005	Development	61386
+d006	Quality Management	14546
+d007	Sales	37701
+d008	Research	15441
+d009	Customer Service	17569;
 
 
 
@@ -222,6 +231,9 @@ emp on emp no
 salaries on  emp no
 
 order by average_salary
+-- ++++++++++++
+
+
 
 
 -- 8 
