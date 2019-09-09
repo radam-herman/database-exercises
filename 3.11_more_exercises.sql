@@ -416,14 +416,88 @@ from `employees`
 limit 5;
 
 2 You need to find the ID number, first name, and last name of an actor, of whom you know only the first name, "Joe." What is one query would you could use to obtain this information?
+
+ID fn LN of `actor`
+
+;
+describe actor;
+
+select actor_id, first_name, `last_name`
+from actor
+where first_name = 'Joe';
+
+
 3 Find all actors whose last name contain the letters "gen":
+;
+
+select *
+from actor;
+select actor_id, first_name, last_name
+from actor
+where last_name like '%gen%';
+
+
 4 Find all actors whose last names contain the letters "li". This time, order the rows by last name and first name, in that order.
+;
+select actor_id, first_name, last_name
+from actor
+where last_name like '%li%'
+order by last_name, first_name;
+
 5 Using IN, display the country_id and country columns for the following countries: Afghanistan, Bangladesh, and China:
+;
+select country_id, country
+from country
+where country in ('Afghanistan', 'Bangladesh','China');
+
 6 List the last names of all the actors, as well as how many actors have that last name.
+;
+select last_name, count(*)
+from actor
+group by last_name
+order by count(*) desc;
+
 7 List last names of actors and the number of actors who have that last name, but only for names that are shared by at least two actors
+;
+select last_name, count(*)
+from actor
+group by last_name
+having count(*) > 1
+order by count(*) desc;
+
+
 8 You cannot locate the schema of the address table. Which query would you use to re-create it?
+;
+   -- create  table - but how would you know the specifics???
+
 9 Use JOIN to display the first and last names, as well as the address, of each staff member.
+;
+describe staff;
+select *
+from staff;
+limit 15;
+     address_id ;
+describe address;
+select *
+from address
+limit 15;
+     address;
+     
+     
+ select s.address_id, s.first_name, s.last_name, a.address
+ from staff as s
+     join address as a
+     on s.address_id = a.address_id;
+    
+ 
+select *
+from staff_list;
+
 10 Use JOIN to display the total amount rung up by each staff member in August of 2005.
+
+
+
+
 11 List each film and the number of actors who are listed for that film.
 12 How many copies of the film Hunchback Impossible exist in the inventory system?
 13 The music of Queen and Kris Kristofferson have seen an unlikely resurgence. As an unintended consequence, films starting with the letters K and Q have also soared in popularity. Use subqueries to display the titles of movies starting with the letters K and Q whose language is English.
