@@ -4,6 +4,7 @@
 -- 1 Using the example from the lesson, re-create the employees_with_departments table.
 ;
 
+;
 --  1 
 CREATE TEMPORARY TABLE employees_with_departments AS
 SELECT emp_no, first_name, last_name, dept_no, dept_name
