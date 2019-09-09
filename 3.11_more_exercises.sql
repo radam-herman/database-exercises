@@ -166,7 +166,11 @@ order by cl.percentage ASC;
 
 ;       
 select *
-from city;
+from city
+limit 15;
+
+select *
+from country
 limit 5;
 
 select sum(population)
@@ -260,6 +264,9 @@ order by population desc;
 |            66.48604 |
 +---------------------+;
 
+select avg(LifeExpectancy)
+from country;
+
 -- 6 What is the average life expectancy for each region, each continent? Sort the results from shortest to longest
 
 
@@ -279,16 +286,71 @@ order by population desc;
 | Central Africa            |        50.31111 |
 | Eastern Africa            |        50.81053 |;
 
+select continent, avg(LifeExpectancy) as life_expt
+from country
+group by continent
+order by life_expt;
 
+select region, avg(LifeExpectancy) as life_expt
+from country
+group by region
+order by life_expt;
 
--- |||||||||||||||| -- BONUS -- ||||||||||||||||||||||
-Bonus
+-- |||||||||||||||| -- BONUS -- |||||||||||||||||||||||
+
 -- Find all the countries whose local name is different from the official name
+
+select *
+from country
+limit 20;
+
+select name, localname
+from country
+where localname <> name;
+
 -- How many countries have a life expectancy less than x?
+
+select continent, region, NAME, LifeExpectancy
+from country
+where LifeExpectancy < 50
+order by LifeExpectancy desc, continent, region, name;
+
 -- What state is city x located in?
+select *
+from city
+limit 15;
+select *
+from country
+limit 20;
+
+    --- this gets the important info, next one gets specific only
+select cit.name, cit.countrycode, ct.code, ct.name, ct.region
+from city as cit
+    join country as ct
+    on cit.countrycode = ct.code
+where cit.name = 'kabul';
+
+select ct.name
+from city as cit
+    join country as ct
+    on cit.countrycode = ct.code
+where cit.name = 'kabul';
+
 -- What region of the world is city x located in?
+  -- see above
+
 -- What country (use the human readable name) city x located in?
+    -- state seems to be country in this DB, see above
+    
+    
 -- What is the life expectancy in city x?
+; 
+select cit.name, cit.countrycode, ct.code, ct.name, ct.region, ct.LifeExpectancy
+from city as cit
+    join country as ct
+    on cit.countrycode = ct.code
+where cit.name = 'kabul';
+
 
 
 -- SAKILA SECTION
