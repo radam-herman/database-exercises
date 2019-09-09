@@ -126,3 +126,35 @@ dept_no	char(4)	NO		NULL
 from_date	date	YES		NULL	
 to_date	date	YES		NULL	
 
+
+
+-- BONUS 1 Find all the department names that currently have female managers.
+
+
++-----------------+
+| dept_name       |
++-----------------+
+| Development     |
+| Finance         |
+| Human Resources |
+| Research        |
++-----------------+
+
+
+-- BONUS 2 Find the first and last name of the employee with the highest salary.
+
+
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| Tokuyasu   | Pesch     |
++------------+-----------+
+
+-- BONUS 3 Find the department name that the employee with the highest salary works in.
+
+
++-----------+
+| dept_name |
++-----------+
+| Sales     |
++-----------+
