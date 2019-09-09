@@ -108,9 +108,6 @@ order by d.dept_name;
 
 
 
-
-
-
 select d.dept_name, avg(s.salary) as average_salary
 from employees.departments as d
 join employees.dept_emp as de
@@ -169,7 +166,12 @@ order by cl.percentage ASC;
 
 ;       
 select *
-from city
+from city;
+limit 5;
+
+select sum(population)
+from country;
+where region = 'Caribbean';
 limit 5;
 
 -- 1 What languages are spoken in Santa Monica?
@@ -210,7 +212,21 @@ order by num_countries;
 
 
 -- 3 What is the population for each region?
+select region, count(*)
+from country;
 
+
+group by region;
+
+select *
+from country
+limit 20;
+
+
+select region, sum(population) as population
+from country
+group by region
+order by population desc;
 
 +---------------------------+------------+
 | Region                    | population |
@@ -222,6 +238,10 @@ order by num_countries;
 
 -- 4 What is the population for each continent?
 
+select continent, sum(population) as population
+from country
+group by continent
+order by population desc;
 
 +---------------+------------+
 | Continent     | population |
