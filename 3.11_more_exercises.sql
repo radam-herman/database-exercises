@@ -354,6 +354,90 @@ where cit.name = 'kabul';
 
 
 -- SAKILA SECTION
+use sakila;
+Sakila Database
+;
+show tables;
+actor
+actor_info
+address
+category
+city
+country
+customer
+customer_list
+film
+film_actor
+film_category
+film_list
+film_text
+inventory
+language
+nicer_but_slower_film_list
+payment
+rental
+sales_by_film_category
+sales_by_store
+staff
+staff_list
+store
+
+
+1 Display the first and last names in all lowercase of all the actors.;
+
+describe actor;
+
+select lower (
+            concat(
+                    first_name, ' ', last_name
+                  ) as full_name
+             )
+from actor
+limit 20;
+
+use sakila;
+select concat(lower(first_name), ' ', lower(last_name)) as full_name
+from actor
+limit 20;
+   --- cant seem to use only one LOWER 
+
+use employees;
+select
+    lower(
+        concat (
+            substr(first_name, 1, 1),
+            substr(last_name, 1, 4),
+            "_",
+            substr(birth_date, -5, 2),
+            substr(birth_date, 3, 2)
+              )
+     ) as username, first_name, last_name, birth_date
+from `employees`
+limit 5;
+
+2 You need to find the ID number, first name, and last name of an actor, of whom you know only the first name, "Joe." What is one query would you could use to obtain this information?
+3 Find all actors whose last name contain the letters "gen":
+4 Find all actors whose last names contain the letters "li". This time, order the rows by last name and first name, in that order.
+5 Using IN, display the country_id and country columns for the following countries: Afghanistan, Bangladesh, and China:
+6 List the last names of all the actors, as well as how many actors have that last name.
+7 List last names of actors and the number of actors who have that last name, but only for names that are shared by at least two actors
+8 You cannot locate the schema of the address table. Which query would you use to re-create it?
+9 Use JOIN to display the first and last names, as well as the address, of each staff member.
+10 Use JOIN to display the total amount rung up by each staff member in August of 2005.
+11 List each film and the number of actors who are listed for that film.
+12 How many copies of the film Hunchback Impossible exist in the inventory system?
+13 The music of Queen and Kris Kristofferson have seen an unlikely resurgence. As an unintended consequence, films starting with the letters K and Q have also soared in popularity. Use subqueries to display the titles of movies starting with the letters K and Q whose language is English.
+14 Use subqueries to display all actors who appear in the film Alone Trip.
+15 You want to run an email marketing campaign in Canada, for which you will need the names and email addresses of all Canadian customers.
+16 Sales have been lagging among young families, and you wish to target all family movies for a promotion. Identify all movies categorized as famiy films.
+17 Write a query to display how much business, in dollars, each store brought in.
+18 Write a query to display for each store its store ID, city, and country.
+19 List the top five genres in gross revenue in descending order. (Hint: you may need to use the following tables: category, film_category, inventory, payment, and rental.)
+
+
+
+
+-- ||||||||||||||||||||||||
 
 -- 1 What is the average replacement cost of a film? Does this change depending on the rating of the film?
 
