@@ -579,7 +579,59 @@ from film
 where title like 'Hunchback Impossible';  -- fil_id
 
 13 The music of Queen and Kris Kristofferson have seen an unlikely resurgence. As an unintended consequence, films starting with the letters K and Q have also soared in popularity. Use subqueries to display the titles of movies starting with the letters K and Q whose language is English.
+;
+select *
+from film;
+
+select *
+from language;
+
+select title
+from film 
+where language_id in(
+    select language_id
+    from language
+    where language_id = '1'
+    )
+group by title
+having title like 'K%' or title like 'Q%';
+
+use sakila;
+
 14 Use subqueries to display all actors who appear in the film Alone Trip.
+;
+select *
+from film_actor;
+
+select *
+from actor;
+
+select *
+from film;
+
+
+select actor.first_name, actor.last_name
+from actor;
+
+where actor_id in (
+      select actor_id
+      from film_actor
+      where film_id (
+             select 
+          
+      )
+
+)
+;
+
+select f.title, count(fa.actor_id) as actor_count
+from film as f
+    join film_actor as fa
+    on f.film_id = fa.film_id
+    where 
+group by f.title;
+
+
 15 You want to run an email marketing campaign in Canada, for which you will need the names and email addresses of all Canadian customers.
 16 Sales have been lagging among young families, and you wish to target all family movies for a promotion. Identify all movies categorized as famiy films.
 17 Write a query to display how much business, in dollars, each store brought in.
@@ -630,5 +682,84 @@ where title like 'Hunchback Impossible';  -- fil_id
 | BUCKET BROTHERHOOD  |    34 |
 | ROCKETEER MOTHER    |    33 |
 | GRIT CLOCKWORK      |    32 |;
+
+
+-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||
+-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+  -- select
+select *
+from actor;
+select last_name
+from actor;
+???;
+  -- distinct ||||||||||||||||||||||
+
+select distinct last_name
+from actor;
+  describe address;
+select distinct postal_code
+from address;
+  describe film;
+select distinct rating
+from film;
+  -- where ||||||||||||||||||||||
+select title, description, rating, length
+from film
+where length > 180;
+    describe payment;
+    select *
+    from payment
+    limit 3;
+select payment_id, amount, payment_date
+from payment
+where payment_date >= '2005-05-27%';
+select payment_id, amount, payment_date
+from payment
+where payment_date like '2005-05-27%';
+select *
+from customer
+where last_name like 'S%' and first_name like '%N';
+select *
+from customer
+where last_name like 'M%' or active = '0';
+  -- f
+;
+  -- in. ||||||||||||||||||||||||||||||||||
+select phone, district
+from address
+where district in ('California', 'England', 'Taipei', 'West Java');
+  -- b
+;
+-- between ||||||||||||||||||||||
+select *
+from payment
+where payment_date between '2005-05-25 00:00:01' and '2005-05-26 23:59:59';
+-- b
+;
+
+-- like |||||||||||||||||||||||||
+;
+select *
+from film
+where description like 'A Thoughtful%';
+-- b
+;
+
+-- limit ||||||||||||||
+;
+select *
+from payment
+limit 20;
+-- b
+-- c
+;
+select *
+from customer
+limit 100, 100;
+
+-- order by
+;
+
+
 
 
