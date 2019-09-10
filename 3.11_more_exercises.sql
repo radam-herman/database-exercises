@@ -493,13 +493,91 @@ limit 15;
 select *
 from staff_list;
 
+use sakila;
+
 10 Use JOIN to display the total amount rung up by each staff member in August of 2005.
+;
+select sl.name, p.amount
+from staff_list as sl
+     join payment as p
+     on sl.id = p.staff_id;
+  -- 10 solution   
+select sl.name, count(p.amount)
+from payment as p
+     join staff_list as sl
+     on p.staff_id = sl.id
+where p.payment_date like '2005-08-%'
+group by sl.name
+order by count(p.amount);
+
+
+describe sales_by_store;
+select * 
+from sales_by_store;
+
+select *
+from rental;
+
+select *
+from payment
+limit 5;
+describe payment;
+
+payment_id	smallint(5) unsigned	NO	PRI	NULL	auto_increment
+customer_id	smallint(5) unsigned	NO	MUL	NULL	
+staff_id	tinyint(3) unsigned	NO	MUL	NULL	
+rental_id	int(11)	YES	MUL	NULL	
+amount	decimal(5,2)	NO		NULL	
+payment_date	datetime	NO		NULL	
+last_update	timestamp	NO		CURRENT_TIMESTAMP	on update CURRENT_TIMESTAMP;
+1	1	1	76	2.99	2005-05-25 11:30:37	2006-02-15 22:12:30
+2	1	1	573	0.99	2005-05-28 10:35:23	2006-02-15 22:12:30
+3	1	1	1185	5.99	2005-06-15 00:54:12	2006-02-15 22:12:30
+4	1	2	1422	0.99	2005-06-15 18:02:53	2006-02-15 22:12:30
+5	1	2	1476	9.99	2005-06-15 21:08:46	2006-02-15 22:12:30;
 
 
 
 
 11 List each film and the number of actors who are listed for that film.
+;
+select *
+from film_actor;  -- actor_id, film_id, last_update
+;
+select *
+from film;   -- film_id, title
+;
+select *
+from actor;   -- actor_id
+;
+select f.title, count(fa.actor_id) as actor_count
+from film as f
+    join film_actor as fa
+    on f.film_id = fa.film_id
+group by f.title
+order by actor_count desc;
+
+
 12 How many copies of the film Hunchback Impossible exist in the inventory system?
+;
+select count(film_id)
+from inventory
+where film_id in (
+          select film_id
+          from film
+          where title like 'Hunchback Impossible'
+    );
+        
+;
+select count(film_id)
+from inventory
+where film_id = '439';
+  -- inventory_id, film_id,
+;
+select *
+from film
+where title like 'Hunchback Impossible';  -- fil_id
+
 13 The music of Queen and Kris Kristofferson have seen an unlikely resurgence. As an unintended consequence, films starting with the letters K and Q have also soared in popularity. Use subqueries to display the titles of movies starting with the letters K and Q whose language is English.
 14 Use subqueries to display all actors who appear in the film Alone Trip.
 15 You want to run an email marketing campaign in Canada, for which you will need the names and email addresses of all Canadian customers.
